@@ -1,7 +1,7 @@
 [![python >3.8.15](https://img.shields.io/badge/python-3.8.15-brightgreen)](https://www.python.org/)
 
 # SGAE: Deciphering spatial domains from spatially resolved transcriptomics with Siamese Graph Autoencoder
-
+#Overview
 Spatial transcriptomics (ST) is a newly emerging field that facilitates a comprehensive characterization of tissue 
 organization and architecture. By profiling the spatially-resolved gene expression patterns, ST technologies 
 allow scientists to gain an in-depth understanding of the complex cellular dynamics and within tissue. 
@@ -10,6 +10,7 @@ into same representation. To address this issue, we proposed a Siamese Graph Aut
 discriminative spot representation and decipher accurate spatial domains. SGAE outperformed those spatial clustering 
 methods across multiple platforms derived datasets based on the evaluation of ARI, FMI, NMI. Moreover, the clustering 
 results derived from the SGAE model can be further utilized in 3D Drosophila Embryo reconstruction.
+![](./fig1.png)
 
 # Dependences
 [![anndata-0.9.2](https://img.shields.io/badge/anndata-0.9.2-red)](https://github.com/scverse/anndata)
