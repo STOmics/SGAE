@@ -23,6 +23,7 @@ from utils.gpu_memory_log import gpu_memory_log
 
 
 def pretrain_ae_highRes(train_loader, args):
+    ae_epochs = args.n_epochs
     from models.AE import AE
     model = AE(ae_n_enc_1=args.ae_n_enc_1, ae_n_enc_2=args.ae_n_enc_2, ae_n_enc_3=args.ae_n_enc_3,
                ae_n_dec_1=args.ae_n_dec_1, ae_n_dec_2=args.ae_n_dec_2, ae_n_dec_3=args.ae_n_dec_3,
@@ -34,7 +35,7 @@ def pretrain_ae_highRes(train_loader, args):
     args.dbscore = 100000
     args.inertia = 100000
     cnt = 0
-    for epoch in tqdm.tqdm(range(args.all_epochs[1])):
+    for epoch in tqdm.tqdm(range(ae_epochs)):
         for batch_idx, (x, _) in enumerate(train_loader):
             model.train()
             x = x.cuda()
@@ -119,6 +120,7 @@ def pretrain_gae_highRes(data, adj, args):
     """
     pretrain_gae_high_Resolution
     """
+    gae_epochs = args.n_epochs
     from models.GAE import IGAE
     model = IGAE(gae_n_enc_1=args.gae_n_enc_1, gae_n_enc_2=args.gae_n_enc_2, gae_n_enc_3=args.gae_n_enc_3,
                  gae_n_dec_1=args.gae_n_dec_1, gae_n_dec_2=args.gae_n_dec_2, gae_n_dec_3=args.gae_n_dec_3,
@@ -132,7 +134,7 @@ def pretrain_gae_highRes(data, adj, args):
     optimizer = Adam(model.parameters(), lr=args.lr)
     data = data.cuda()
     adj = adj.cuda()
-    for epoch in tqdm.tqdm(range(args.all_epochs[0])):
+    for epoch in tqdm.tqdm(range(gae_epochs)):
         model.train()
         z_hat, adj_hat, z_igae = model(data, adj)
         loss = gcn_loss_high_res(data, adj, z_hat, adj_hat)
@@ -176,6 +178,7 @@ def pretrain_gae_highRes(data, adj, args):
 
 
 def pretrain_highRes(data, adj, args):
+    pre_epochs = args.n_epochs
     from models.Pre_model import Pre_model
     model = Pre_model(ae_n_enc_1=args.ae_n_enc_1, ae_n_enc_2=args.ae_n_enc_2, ae_n_enc_3=args.ae_n_enc_3,
                       ae_n_dec_1=args.ae_n_dec_1, ae_n_dec_2=args.ae_n_dec_2, ae_n_dec_3=args.ae_n_dec_3,
@@ -193,7 +196,7 @@ def pretrain_highRes(data, adj, args):
     data = data.cuda()
     adj = adj.cuda()
     model = model.cuda()
-    for epoch in tqdm.tqdm(range(args.all_epochs[2])):
+    for epoch in tqdm.tqdm(range(pre_epochs)):
         model.train()
         x_hat, z_hat, adj_hat, z_ae, z_igae, z_tilde = model(data, adj)
         loss = pretrain_loss_bce(data, adj, x_hat, z_hat, adj_hat, z_ae, z_igae)
@@ -248,6 +251,8 @@ def train_main_highRes(X, graph_dict, args):
         labels: input label
     Returns: acc, nmi, ari, f1
     """
+    sgae_epochs = args.n_epochs
+
     from utils.utils import model_init, gaussian_noised_feature
     from models.SGAE_model import SGAE
     model = SGAE(n_node=X.shape[0])
@@ -283,7 +288,7 @@ def train_main_highRes(X, graph_dict, args):
     args.dbscore = 100000
     args.inertia = 100000
     cnt = 0
-    for epoch in tqdm.tqdm(range(args.all_epochs[3])):
+    for epoch in tqdm.tqdm(range(sgae_epochs)):
         model.train()
         # from torch.cuda.amp import autocast
         # with autocast():
