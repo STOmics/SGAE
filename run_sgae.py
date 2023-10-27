@@ -3,7 +3,7 @@ import os
 import time
 
 from torch.utils.data import DataLoader
-os.environ['CUDA_VISIBLE_DEVICES'] = '3'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 import os.path as osp
 from scanpy import read_h5ad
 import torch
@@ -11,10 +11,10 @@ from utils.config import setup, set_path_models, print_setting
 from utils.opt import args
 from utils.utils import tensor_2_sparsetensor, preprocess, graph_construction_cluster, graph_construction_spatial_knn
 
+
 if __name__ == '__main__':
 
-    adata = read_h5ad('mouse_embryo.h5ad')
-    args.name = 'mouse_embryo'
+    adata = read_h5ad(args.data_file)
     print(args.name)
     setup(args)
 

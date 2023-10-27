@@ -40,32 +40,33 @@ def run_case(dataset, adata):
         graph_dict['adj_org'] = tensor_2_sparsetensor(graph_dict['adj_org'])
         torch.save(graph_dict, args.res_dir + "graphdict.pt")
 
-        # DataLoader
-        from utils.utils import LoadDataset
-        dataset = LoadDataset(adata.obsm['X_pca'])
-        data_X = torch.FloatTensor(dataset.x.copy())  # .cuda()
-        train_loader = DataLoader(dataset, batch_size=args.batch_size, shuffle=args.shuffle)
+    # DataLoader
+    from utils.utils import LoadDataset
+    dataset = LoadDataset(adata.obsm['X_pca'])
+    data_X = torch.FloatTensor(dataset.x.copy())  # .cuda()
+    train_loader = DataLoader(dataset, batch_size=args.batch_size, shuffle=args.shuffle)
 
-        args.modelname = 'SGAE_Nosym'
-        args.ae_modelname = 'ae'
-        args.gae_modelname = 'gae_Nosym'
-        args.pre_modelname = 'pre_Nosym'
-        set_path_models(args, args.name)
+    args.modelname = 'SGAE_Nosym'
+    args.ae_modelname = 'ae'
+    args.gae_modelname = 'gae_Nosym'
+    args.pre_modelname = 'pre_Nosym'
+    set_path_models(args, args.name)
 
-        # train
-        args.train_who = [1, 1, 1, 1]
-        from trainers.train_HR import train_all_highRes
-        train_all_highRes(train_loader=train_loader, data=data_X, graph_dict=graph_dict, args=args, adata=adata)
-        gc.collect()
-        torch.cuda.empty_cache()
+    # train
+    args.train_who = [1, 1, 1, 1]
+    from trainers.train_HR import train_all_highRes
+    train_all_highRes(train_loader=train_loader, data=data_X, graph_dict=graph_dict, args=args, adata=adata)
+    gc.collect()
+    torch.cuda.empty_cache()
 
 
 if __name__ == '__main__':
 
+
     dataset = args.dataset
 
     if dataset == 'merfish':
-        adata = read_h5ad('mouse1sample1_left_top_raw.h5ad')
+        adata = read_h5ad('mouse1sample1_left_top.h5ad')
         run_case(dataset, adata)
 
     elif dataset == 'dlpfc':
@@ -102,4 +103,4 @@ if __name__ == '__main__':
         run_case(dataset, adata)
 
     else:
-        print('Please check the input data.')
+        print('Please specify the *.h5ad file then use run_sgae.py.')
