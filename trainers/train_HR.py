@@ -71,51 +71,6 @@ def pretrain_ae_highRes(train_loader, args):
         pass
 
 
-def pretrain_ae_highRes_allstep(model, train_loader, args):
-    model = model.cuda()
-    optimizer = Adam(model.parameters(), lr=args.lr)
-    # tra = tra.cuda()
-    args.chscore = 0
-    args.sscore = 0
-    args.dbscore = 100000
-    args.inertia = 100000
-    cnt = 0
-    for epoch in tqdm.tqdm(range(args.epoch)):
-        for batch_idx, (x, _) in enumerate(train_loader):
-            model.train()
-            x = x.cuda()
-            x_hat, z_hat = model(x)
-            loss = 10 * F.mse_loss(x_hat, x)
-            loss.backward()
-            # evaluation
-            with torch.no_grad():
-                model.eval()
-                if epoch % 1 == 0:
-                    chscore, sscore, dbscore, inertia, cluster_id = clustering_mob(x, z_hat, args.n_clusters)
-                    if chscore > args.chscore or sscore > args.sscore or dbscore < args.dbscore or inertia < args.inertia:
-                        args.chscore = max(chscore, args.chscore)
-                        args.sscore = max(chscore, args.sscore)
-                        args.dbscore = min(chscore, args.dbscore)
-                        args.inertia = min(chscore, args.inertia)
-                        torch.save(model.state_dict(), args.ae_model_save_path)
-                        # z1 = z_hat
-                        # cluster_id1 = cluster_id
-                        cnt = 0
-                    else:
-                        cnt += 1
-                if cnt == args.patience * 2:
-                    print('early stopping!!!')
-                    break
-        optimizer.step()
-        model.zero_grad(set_to_none=True)  # 模型参数梯度清零
-        optimizer.zero_grad(set_to_none=True)  # 优化器参数梯度清零
-    print("Finish optimization.")
-    try:
-        gpu_memory_log(gpu_log_file=args.name + "_" + args.ae_modelname + "gpu_mem.log",
-                   device=torch.cuda.current_device())
-    except ReferenceError:
-        pass
-
 def pretrain_gae_highRes(data, adj, args):
     """
     pretrain_gae_high_Resolution
