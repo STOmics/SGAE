@@ -198,7 +198,7 @@ def print_setting(args):
     print("random seed   : {}".format(args.seed))
     print("clusters      : {}".format(args.n_clusters))
     print("k_nn          : {}".format(args.k_nn))
-    print("epoch         : {}".format(args.epoch))
+    print("epoch         : {}".format(args.n_epochs))
     print("n_inputs      : {}".format(args.n_inputs))
     print("n_z           : {}".format(args.n_z))
     print("alpha value   : {}".format(args.alpha_value))
