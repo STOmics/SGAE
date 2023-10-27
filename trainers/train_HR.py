@@ -253,7 +253,7 @@ def train_main_highRes(X, graph_dict, args):
         X_tilde1, X_tilde2 = gaussian_noised_feature(X)
         # input & output
         X_hat, Z_hat, A_hat, _, Z_ae_all, Z_gae_all, Q, Z = model(X_tilde1, graph_dict['adj_ad'], X_tilde2, Am)
-        loss = sgae_loss_bce(X, graph_dict['adj_norm'], X_hat, Z_hat, A_hat, Z_ae_all, Z_gae_all, args.lambda_value)
+        loss = sgae_loss_bce(X, graph_dict['adj_norm'], X_hat, Z_hat, A_hat, Z_ae_all, Z_gae_all, Q, args.lambda_value)
         loss.backward()
         optimizer.step()
         model.zero_grad(set_to_none=True)  # 模型参数梯度清零
