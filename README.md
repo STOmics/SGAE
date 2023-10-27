@@ -31,18 +31,16 @@ results derived from the SGAE model can be further utilized in 3D Drosophila Emb
 [![torch_geometric-2.3.1](https://img.shields.io/badge/torch_geometric-2.3.1-magenta)](https://pypi.org/project/torch-geometric/2.3.1/)
 [![tqdm-4.59.0](https://img.shields.io/badge/tqdm-4.59.0-blueviolet)](https://pypi.org/project/tqdm/4.59.0/)
 
-# Install
+# Quick Start
 
-You can install SGAE via Git or Code Ocean
+You can install SGAE via bash or Code Ocean
 
-###  Github installation
-
-```git
-git clone https://github.com/STOmics/SGAE.git
-
-cd SGAE
-
-python setup.py install
+### Install Dependencies via bash
+```bash
+### Python enviroment constructed by Conda
+conda create -n SGAE python=3.8
+conda activate SGAE
+pip install -r requirements.txt
 ```
 
 ### Code Ocean installation
@@ -93,7 +91,7 @@ The foundation functions of SGAE is deposited at `models` directory.
 
   | Parameter    | Type  | Defination                          | Default |
   | ------------ | ----- | ----------------------------------- | ------- |
-  | all_epochs   | int   | total epoch                         | 1000    |
+  | n_epochs     | int   | total epoch                         | 1000    |
   | patience     | float | denote the early stopping point     | 0.2     |
   | batch_size   | int   | the size of a single batch          | 256     |
   | lr           | float | learning rate                       | 1e-4    |
@@ -142,7 +140,10 @@ The foundation functions of SGAE is deposited at `models` directory.
   python3 run_case.py --n_epochs 1000 --dataset 'mousebrain'
   ```
 
-
+- Your Own Data (please specify the name of dataset and *.h5ad file)
+  ```python  
+  python3 run_case.py --n_epochs 1000 --dataset 'your_own_data'
+  ```
 
 # Disclaimer
 
