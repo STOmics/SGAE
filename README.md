@@ -45,11 +45,9 @@ python setup.py install
 - SGAE Pipeline           
   Decipher spatial domain in spatial transcriptomics.
   ```python       
-   python3 run_sgae.py --n_epochs 1000 --gpu_id 7
+   python3 run_sgae.py --n_epochs 1000
 
 --n_epochs: the epochs of iteration in training process.
-
---gpu_id: the ID of GPU on your machine if GPU is available.
 
 For more arguments, please check /utils/opt.py
 # Disclaimer
