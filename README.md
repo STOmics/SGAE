@@ -50,9 +50,9 @@ We also upload our code to [Code Ocean](https://codeocean.com/capsule/4678327/tr
 ### Running SGAE Script from the Command-line
 ```bash
 cd SGAE
-python3 run_sgae.py --n_epochs 1000 --name xxx --data_path /xxx/xxx --data_file xxx.h5ad
+python3 run_sgae.py --n_epochs 1000 --name xxx  --data_file xxx.h5ad
 ```
-Please specify your own data name, data_path and data_file via the arguments showed above. You can also
+Please specify your own data name and data_file via the arguments showed above. You can also
 check the tutorial below to get a quick start.
 # Data
 
