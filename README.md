@@ -45,11 +45,18 @@ python setup.py install
 - SGAE Pipeline           
   Decipher spatial domain in spatial transcriptomics.
   ```python       
-   python3 run_sgae.py --n_epochs 1000
+   python3 run_case.py --n_epochs 1000
 
 --n_epochs: the epochs of iteration in training process.
 
+Please specify the dataset in run_case.py script. The default dataset is the
+mouse cortex from MERFISH platform.
+
 For more arguments, please check /utils/opt.py
+
+### Code Ocean
+We also upload our code to [Code Ocean](https://codeocean.com/capsule/4678327/tree). Please
+check it for easier compilation.
 # Disclaimer
 
 ***This is not an official product.***       
