@@ -3,12 +3,14 @@ import argparse
 parser = argparse.ArgumentParser(description='SGAE', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 # setting
-parser.add_argument('--name', type=str, default="dblp")
+parser.add_argument('--name', type=str, default="merfish")
 parser.add_argument('--gpu_id', type=str, default='0')
 parser.add_argument('--modelname', type=str, default="SGAE")
 parser.add_argument('--cuda', type=bool, default=True)
 parser.add_argument('--seed', type=int, default=1)
 parser.add_argument('--dataset', type=str, default='merfish')
+parser.add_argument('--data_file', type=str, default='merfish.h5ad')
+
 
 # hyperparameters
 parser.add_argument('--n_clusters', type=int, default=20)
