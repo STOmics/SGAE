@@ -20,7 +20,7 @@ parser.add_argument('--alpha_value', type=float, default=0.2)
 
 # training parameters
 parser.add_argument('--train_who', type=int, default=[1, 1, 1, 1], nargs='+')
-parser.add_argument('--n_epochs', type=int, default=1000, nargs='+')
+parser.add_argument('--n_epochs', type=int, default=1000)
 parser.add_argument('--patience', type=int, default=30)
 
 parser.add_argument('--batch_size', type=int, default=256)
