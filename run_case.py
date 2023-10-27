@@ -3,6 +3,7 @@ import os
 import time
 
 from torch.utils.data import DataLoader
+
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 import os.path as osp
 from scanpy import read_h5ad
@@ -58,9 +59,10 @@ def run_case(dataset, adata):
         gc.collect()
         torch.cuda.empty_cache()
 
+
 if __name__ == '__main__':
 
-    dataset = 'merfish'
+    dataset = args.dataset
 
     if dataset == 'merfish':
         adata = read_h5ad('mouse1sample1_left_top_raw.h5ad')
