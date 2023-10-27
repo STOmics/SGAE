@@ -11,6 +11,7 @@ into same representation. To address this issue, we proposed a Siamese Graph Aut
 discriminative spot representation and decipher accurate spatial domains. SGAE outperformed those spatial clustering 
 methods across multiple platforms derived datasets based on the evaluation of ARI, FMI, NMI. Moreover, the clustering 
 results derived from the SGAE model can be further utilized in 3D Drosophila Embryo reconstruction.
+## Schematic Diagram
 ![](./fig1.png)
 
 # Dependences
