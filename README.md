@@ -1,7 +1,8 @@
 [![python >3.8.15](https://img.shields.io/badge/python-3.8.15-brightgreen)](https://www.python.org/)
 
 # SGAE: Deciphering spatial domains from spatially resolved transcriptomics with Siamese Graph Autoencoder
-#Overview
+
+## Overview
 Spatial transcriptomics (ST) is a newly emerging field that facilitates a comprehensive characterization of tissue 
 organization and architecture. By profiling the spatially-resolved gene expression patterns, ST technologies 
 allow scientists to gain an in-depth understanding of the complex cellular dynamics and within tissue. 
@@ -32,6 +33,10 @@ results derived from the SGAE model can be further utilized in 3D Drosophila Emb
 
 # Install
 
+You can install SGAE via Git or Code Ocean
+
+###  Github installation
+
 ```git
 git clone https://github.com/STOmics/SGAE.git
 
@@ -40,31 +45,109 @@ cd SGAE
 python setup.py install
 ```
 
+### Code Ocean installation
+
+We also upload our code to [Code Ocean](https://codeocean.com/capsule/4678327/tree). Please check it for easier compilation.
+
+# Data
+
+We used data from various of platform and samples to benchmark our method. Here is a table for the data mentioned in article.
+
+| Dataset | Platform |   Samples    |  Species   |             Tissue             |                            Source                            |
+| :-----: | -------- | :----------: | :--------: | :----------------------------: | :----------------------------------------------------------: |
+|  DLPFC  | 12       |  10X Visium  |   Human    | Dorsolateral prefrontal cortex |             http://research.libd.org/spatialLIBD             |
+|   MG    | 1        |   seqFISH    |   Mouse    |          Gastrulation          |        https://crukci.shinyapps.io/SpatialMouseAtlas/        |
+|   MC    | 1        |   MERFISH    |   Mouse    |          Cortex data           |              https://doi.brainimagelibrary.org/              |
+|   MOB   | 1        | SLIDE-seq v2 |   Mouse    |         Olfactory bulb         | https://singlecell.broadinstitute.org/single_cell/study/SCP815/highly-sensitive-spatial-transcriptomics-at-near-cellular-resolution-with-slide-seqv2#study-summary |
+|   DE    | 16       |  Stereo-seq  | Drosophila |             Embryo             |        https://db.cngb.org/stomics/flysta3d/spatial/         |
+|   MB    | 1        |  Stereo-seq  |   Mouse    |             Brain              |              https://zenodo.org/record/7340795               |
+
+
+
+# Codes
+
+The foundation functions of SGAE is deposited at `models` directory. 
+
+### Parameter settings
+
+- General setting
+
+  | Parameter   | Type | Defination                                         | Default |
+  | ----------- | ---- | -------------------------------------------------- | ------- |
+  | name        | str  | name to save result to indicate the data or sample | dblp    |
+  | modelname   | str  | name to save result to indicate the model          | SGAE    |
+  | project_dir | str  | directory to save result                           | ./      |
+  | cuda        | bool | whether to use GPU                                 | True    |
+  | gpu_id      | str  | choose a specific GPU                              | 0       |
+  | seed        | int  | determine random seed                              | 1       |
+  | n_clusters  | int  | number of clustering                               | 20      |
+
+- Graph setting
+
+  | Parameter   | Type  | Defination                             | Default |
+  | ----------- | ----- | -------------------------------------- | ------- |
+  | k_nn        | int   | number of neighbors to construct graph | 3       |
+  | alpha_value | float | alpha value for graph diffusion        | 0.2     |
+
+- Training setting
+
+  | Parameter    | Type  | Defination                          | Default |
+  | ------------ | ----- | ----------------------------------- | ------- |
+  | all_epochs   | int   | total epoch                         | 1000    |
+  | patience     | float | denote the early stopping point     | 0.2     |
+  | batch_size   | int   | the size of a single batch          | 256     |
+  | lr           | float | learning rate                       | 1e-4    |
+  | lambda_value | float | weight for clustering guidance loss | 10      |
+
+
+
 # Tutorial
 
-- SGAE Pipeline           
-  Decipher spatial domain in spatial transcriptomics.
-  ```python       
-   python3 run_case.py --n_epochs 1000
+ Reproduce the result of article via  `run_case.py`.
 
---n_epochs: the epochs of iteration in training process.
+- DLPFC:
+  ```python  
+  python3 run_case.py --n_epochs 1000 --dataset 'dlpfc'
+  ```
 
-Please specify the dataset in run_case.py script. The default dataset is the
-mouse cortex from MERFISH platform.
+- seqFISH  Mouse  Gastrulation:
 
-For more arguments, please check /utils/opt.py
+  ```python  
+  python3 run_case.py --n_epochs 1000 --dataset 'seqfish'
+  ```
 
-### Code Ocean
-We also upload our code to [Code Ocean](https://codeocean.com/capsule/4678327/tree). Please
-check it for easier compilation.
+- MERFISH  Mouse  Cortex data:
+
+  ```python  
+  python3 run_case.py --n_epochs 1000 --dataset 'merfish'
+  ```
+
+- SLIDE-seq v2  Mouse  Olfactory bulb:
+
+  ```python  
+  python3 run_case.py --n_epochs 1000 --dataset 'slideseq'
+  ```
+
+- Stereo-seq  Drosophila  Embryo:
+
+  ```python  
+  python3 run_case.py --n_epochs 1000 --dataset 'drosophila_14_16'
+  python3 run_case.py --n_epochs 1000 --dataset 'drosophila_16_18'
+  python3 run_case.py --n_epochs 1000 --dataset 'drosophila_l1'
+  ```
+
+- Stereo-seq  Mouse  Brain:
+
+  ```python  
+  python3 run_case.py --n_epochs 1000 --dataset 'mousebrain'
+  ```
+
+
+
 # Disclaimer
 
-***This is not an official product.***       
-         
-        
+***This is not an official product.***      
 
+# Citation 
 
-            
-            
-            
-            
+Please cite:
