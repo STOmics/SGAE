@@ -33,8 +33,6 @@ results derived from the SGAE model can be further utilized in 3D Drosophila Emb
 
 # Quick Start
 
-You can install SGAE via bash or Code Ocean
-
 ### Install Dependencies via bash
 ```bash
 ### Python enviroment constructed by Conda
@@ -43,10 +41,19 @@ conda activate SGAE
 pip install -r requirements.txt
 ```
 
-### Code Ocean installation
+
+### Run on Code Ocean 
 
 We also upload our code to [Code Ocean](https://codeocean.com/capsule/4678327/tree). Please check it for easier compilation.
 
+
+### Running SGAE Script from the Command-line
+```bash
+cd SGAE
+python3 run_sgae.py --n_epochs 1000 --name xxx --data_path /xxx/xxx --data_file xxx.h5ad
+```
+Please specify your own data name, data_path and data_file via the arguments showed above. You can also
+check the tutorial below to get a quick start.
 # Data
 
 We used data from various of platform and samples to benchmark our method. Here is a table for the data mentioned in article.
@@ -105,50 +112,45 @@ The foundation functions of SGAE is deposited at `models` directory.
 
 - DLPFC:
   ```python  
-  python3 run_case.py --n_epochs 1000 --dataset 'dlpfc'
+  python3 run_case.py --n_epochs 1000 --dataset dlpfc
   ```
 
 - seqFISH  Mouse  Gastrulation:
 
   ```python  
-  python3 run_case.py --n_epochs 1000 --dataset 'seqfish'
+  python3 run_case.py --n_epochs 1000 --dataset seqfish
   ```
 
 - MERFISH  Mouse  Cortex data:
 
   ```python  
-  python3 run_case.py --n_epochs 1000 --dataset 'merfish'
+  python3 run_case.py --n_epochs 1000 --dataset merfish
   ```
 
 - SLIDE-seq v2  Mouse  Olfactory bulb:
 
   ```python  
-  python3 run_case.py --n_epochs 1000 --dataset 'slideseq'
+  python3 run_case.py --n_epochs 1000 --dataset slideseq
   ```
 
 - Stereo-seq  Drosophila  Embryo:
 
   ```python  
-  python3 run_case.py --n_epochs 1000 --dataset 'drosophila_14_16'
-  python3 run_case.py --n_epochs 1000 --dataset 'drosophila_16_18'
-  python3 run_case.py --n_epochs 1000 --dataset 'drosophila_l1'
+  python3 run_case.py --n_epochs 1000 --dataset drosophila_14_16
+  python3 run_case.py --n_epochs 1000 --dataset drosophila_16_18
+  python3 run_case.py --n_epochs 1000 --dataset drosophila_l1
   ```
 
 - Stereo-seq  Mouse  Brain:
 
   ```python  
-  python3 run_case.py --n_epochs 1000 --dataset 'mousebrain'
+  python3 run_case.py --n_epochs 1000 --dataset mousebrain
   ```
 
-- Your Own Data (please specify the name of dataset and *.h5ad file)
-  ```python  
-  python3 run_case.py --n_epochs 1000 --dataset 'your_own_data'
-  ```
 
-# Disclaimer
+   
 
-***This is not an official product.***      
-
-# Citation 
-
-Please cite:
+## Contact
+Any questions or suggestions on EAGS are welcomed! Please report it on issues, 
+or contact Lei Cao (caolei2@genomics.cn) or Shuangsang Fang (fangshuangsang@genomics.cn).
+We recommend using [STOmics Cloud Platform](https://cloud.stomics.tech/) to access and use it.
