@@ -17,14 +17,14 @@ crossentropyloss = nn.CrossEntropyLoss()
 import torch.nn.functional as F
 from torch.optim import Adam
 
-from .models.Loss import pretrain_loss_bce, sgae_loss_bce, gcn_loss_high_res
-from .utils.utils import remove_edge, clustering_mob, plot_eval_clustering
-from .utils.gpu_memory_log import gpu_memory_log
+from .Loss import pretrain_loss_bce, sgae_loss_bce, gcn_loss_high_res
+from .utils import remove_edge, clustering_mob, plot_eval_clustering
+from .gpu_memory_log import gpu_memory_log
 
 
 def pretrain_ae_highRes(train_loader, args):
     ae_epochs = args.n_epochs
-    from .models.AE import AE
+    from .AE import AE
     model = AE(ae_n_enc_1=args.ae_n_enc_1, ae_n_enc_2=args.ae_n_enc_2, ae_n_enc_3=args.ae_n_enc_3,
                ae_n_dec_1=args.ae_n_dec_1, ae_n_dec_2=args.ae_n_dec_2, ae_n_dec_3=args.ae_n_dec_3,
                n_inputs=args.n_inputs, n_z=args.n_z)
@@ -77,7 +77,7 @@ def pretrain_gae_highRes(data, adj, args):
     pretrain_gae_high_Resolution
     """
     gae_epochs = args.n_epochs
-    from .models.GAE import IGAE
+    from .GAE import IGAE
     model = IGAE(gae_n_enc_1=args.gae_n_enc_1, gae_n_enc_2=args.gae_n_enc_2, gae_n_enc_3=args.gae_n_enc_3,
                  gae_n_dec_1=args.gae_n_dec_1, gae_n_dec_2=args.gae_n_dec_2, gae_n_dec_3=args.gae_n_dec_3,
                  n_inputs=args.n_inputs).cuda()
@@ -135,7 +135,7 @@ def pretrain_gae_highRes(data, adj, args):
 
 def pretrain_highRes(data, adj, args):
     pre_epochs = args.n_epochs
-    from .models.Pre_model import Pre_model
+    from .Pre_model import Pre_model
     model = Pre_model(ae_n_enc_1=args.ae_n_enc_1, ae_n_enc_2=args.ae_n_enc_2, ae_n_enc_3=args.ae_n_enc_3,
                       ae_n_dec_1=args.ae_n_dec_1, ae_n_dec_2=args.ae_n_dec_2, ae_n_dec_3=args.ae_n_dec_3,
                       gae_n_enc_1=args.gae_n_enc_1, gae_n_enc_2=args.gae_n_enc_2, gae_n_enc_3=args.gae_n_enc_3,
@@ -209,8 +209,8 @@ def train_main_highRes(X, graph_dict, args):
     """
     sgae_epochs = args.n_epochs
 
-    from .utils.utils import model_init, gaussian_noised_feature
-    from .models.SGAE_model import SGAE
+    from .utils import model_init, gaussian_noised_feature
+    from .SGAE_model import SGAE
     model = SGAE(n_node=X.shape[0])
     print("Training…")
     model = model.cuda()
