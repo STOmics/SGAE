@@ -7,9 +7,9 @@ from torch import nn
 from torch.nn import Parameter
 
 
-from ..utils.opt import args
-from ..models.AE import AE
-from ..models.GAE import IGAE
+from .utils.opt import args
+from .models.AE import AE
+from .models.GAE import IGAE
 
 
 class Pre_model(nn.Module):
