@@ -8,9 +8,9 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 import os.path as osp
 from scanpy import read_h5ad
 import torch
-from utils.config import setup, set_path_models, print_setting
-from utils.opt import args
-from utils.utils import tensor_2_sparsetensor, preprocess, graph_construction_cluster, graph_construction_spatial_knn
+from .SGAE.utils.config import setup, set_path_models, print_setting
+from .SGAE.utils.opt import args
+from .SGAE.utils.utils import tensor_2_sparsetensor, preprocess, graph_construction_cluster, graph_construction_spatial_knn
 
 
 def run_case(dataset, adata):
@@ -29,7 +29,7 @@ def run_case(dataset, adata):
         graph_dict = torch.load(args.res_dir + "graphdict.pt")
     else:
         n_node = adata.shape[0]
-        from utils.utils import preprocess_graph
+        from .SGAE.utils.utils import preprocess_graph
         cms = ['louvain', 'leiden', 'kmeans']
         adj = graph_construction_cluster(adata.obs[cms[cm]].values.codes.reshape((n_node, 1)))
         adj += graph_construction_spatial_knn(adata.obsm['spatial'], k_nn=args.k_nn)
@@ -41,7 +41,7 @@ def run_case(dataset, adata):
         torch.save(graph_dict, args.res_dir + "graphdict.pt")
 
     # DataLoader
-    from utils.utils import LoadDataset
+    from .SGAE.utils.utils import LoadDataset
     dataset = LoadDataset(adata.obsm['X_pca'])
     data_X = torch.FloatTensor(dataset.x.copy())  # .cuda()
     train_loader = DataLoader(dataset, batch_size=args.batch_size, shuffle=args.shuffle)
@@ -54,7 +54,7 @@ def run_case(dataset, adata):
 
     # train
     args.train_who = [1, 1, 1, 1]
-    from trainers.train_HR import train_all_highRes
+    from .SGAE.trainers.train_HR import train_all_highRes
     train_all_highRes(train_loader=train_loader, data=data_X, graph_dict=graph_dict, args=args, adata=adata)
     gc.collect()
     torch.cuda.empty_cache()
