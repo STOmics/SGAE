@@ -50,4 +50,6 @@ parser.add_argument('--gae_n_dec_1', type=int, default=20)
 parser.add_argument('--gae_n_dec_2', type=int, default=256)
 parser.add_argument('--gae_n_dec_3', type=int, default=128)
 
-args = parser.parse_args()
+# args = parser.parse_args()
+args = parser.parse_known_args()[0]
+
