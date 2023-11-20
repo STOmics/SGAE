@@ -8,10 +8,10 @@ import torch.nn.functional as F
 from torch import nn
 from torch.nn import Parameter
 
-from .models.AE import AE
-from .models.GAE import IGAE
-from .models.readout import Readout
-from .utils.opt import args
+from .AE import AE
+from .GAE import IGAE
+from .readout import Readout
+from .opt import args
 
 
 #
