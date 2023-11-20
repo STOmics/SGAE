@@ -730,23 +730,7 @@ def get_pancancer_data_numba(data_file):
     return data_df
 
 
-def get_data():
-    import pickle5 as pickle
 
-    data_path = '/hwfssz5/ST_BIOINTEL/P20Z10200N0039/06.groups/01.Bio_info_algorithm/renyating/project/vgae/generated_data/'
-    data_name = 'V1_Breast_Cancer_Block_A_Section_1'
-    data_file = data_path + data_name + '/'
-
-    with open(data_file + 'Adjacent', 'rb') as fp:
-        adj_0 = pickle.load(fp)
-    X_data = np.load(data_file + 'features.npy')
-    # num_points = X_data.shape[0]
-    # adj_I = np.eye(num_points)
-    # adj_I = sparse.csr_matrix(adj_I)
-    # # adj = (1 - lambda_I) * adj_0 + lambda_I * adj_I
-    # adj = adj_0 + adj_I
-    cell_type_indeces = np.load(data_file + 'cell_types.npy')
-    return adj_0, adj_0, X_data, cell_type_indeces
 
 
 def get_data_DLPFC(args):
@@ -955,45 +939,6 @@ def load_ST_file(file_fold, proj_idx, load_images=True, file_Adj=None):
     return adata
 
 
-def load_graph_data(dataset_name, args, show_details=False):
-    from sklearn.decomposition import PCA
-    """
-    load graph data
-    :param dataset_name: the name of the dataset
-    :param show_details: if show the details of dataset
-    - dataset name
-    - features' shape
-    - labels' shape
-    - adj shape
-    - edge num
-    - category num
-    - category distribution
-    :return: the features, labels and adj
-    """
-    load_path = "dataset/" + dataset_name + "/" + dataset_name
-    feat = np.load(load_path + "_feat.npy", allow_pickle=True)
-    label = np.load(load_path + "_label.npy", allow_pickle=True)
-    adj = np.load(load_path + "_adj.npy", allow_pickle=True)
-    if show_details:
-        print("++++++++++++++++++++++++++++++")
-        print("---details of graph dataset---")
-        print("++++++++++++++++++++++++++++++")
-        print("dataset name:   ", dataset_name)
-        print("feature shape:  ", feat.shape)
-        print("label shape:    ", label.shape)
-        print("adj shape:      ", adj.shape)
-        print("undirected edge num:   ", int(np.nonzero(adj)[0].shape[0] / 2))
-        print("category num:          ", max(label) - min(label) + 1)
-        print("category distribution: ")
-        for i in range(max(label) + 1):
-            print("label", i, end=":")
-            print(len(label[np.where(label == i)]))
-        print("++++++++++++++++++++++++++++++")
-
-    # X pre-processing
-    pca = PCA(n_components=args.n_inputs)
-    feat = pca.fit_transform(feat)
-    return feat, label, adj
 
 
 def concat_adata(periods, data_path):
