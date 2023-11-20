@@ -9,15 +9,15 @@
 __author__ = "Chao Yang"
 __email__ = "yangchao4@genomics.cn"
 
-from .utils.config import *
-from .utils.gem2h5ad import *
-from .utils.gpu_memory_log import *
-from .utils.utils import *
-from .models.AE import *
-from .models.discriminator import *
-from .models.GAE import *
-from .models.Loss import *
-from .models.Pre_model import *
-from .models.readout import *
-from .models.SGAE_model import *
-from .trainers.train_HR import *
+from .config import *
+from .gem2h5ad import *
+from .gpu_memory_log import *
+from .utils import *
+from .AE import *
+from .discriminator import *
+from .GAE import *
+from .Loss import *
+from .Pre_model import *
+from .readout import *
+from .SGAE_model import *
+from .train_HR import *
