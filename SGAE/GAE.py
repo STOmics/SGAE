@@ -52,7 +52,6 @@ class GNNLayer(Module):
                 features = self.act(features)
             else:
                 features = torch.mm(features, self.weight)
-            print('***', adj.shape, features.shape)
             output = torch.spmm(adj, features)
         elif self.model_type == 'GAT':
             if adj.layout == torch.strided:
