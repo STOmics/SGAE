@@ -30,7 +30,7 @@ def _get_tensors():
             yield tensor
 
 def _write_log(f, write_str):
-    print(write_str)
+    # print(write_str)
     f.write("%s\n" % write_str)
 
 def gpu_memory_log(gpu_log_file="gpu_mem.log", device=0):
