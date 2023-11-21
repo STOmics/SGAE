@@ -2656,8 +2656,8 @@ def eva_more_save(y_true, y_pred, res_dir, data_name, modelname):
     np.savetxt(osp.join(res_dir, data_name + '_' + modelname + '_res.txt'),
                [ari, fmi, nmi, acc, f1_macro, precision_macro, recall_macro, f1_micro, precision_micro, recall_micro],
                delimiter='\t', fmt='%.5f')
-    print(data_name + '_' + modelname + '_res:\n', ari, fmi, nmi, acc, f1_macro, precision_macro, recall_macro,
-          f1_micro, precision_micro, recall_macro, recall_micro)
+    # print(data_name + '_' + modelname + '_res:\n', ari, fmi, nmi, acc, f1_macro, precision_macro, recall_macro,
+          # f1_micro, precision_micro, recall_macro, recall_micro)
     return ari, fmi, nmi, acc, f1_macro, precision_macro, recall_macro, f1_micro, precision_micro, recall_micro
 
 
